@@ -37,10 +37,11 @@ $r3 = new Reservation ($chambre3, $micka ,"01-04-2021", "01-04-2021");
 //echo $hilton->afficherNbChambre();
 
 echo $hilton->getInfos();
-echo $hilton->getInfos();
+echo $regent->getInfos();
 
 
-echo $micka->afficherReservations($chambre1);
-echo $chambre1->addReservation($r1);
-echo $chambre1->afficherReservations();
-echo $virgile->afficherReservations($chambre2);
+echo $micka->afficherReservations();
+//echo $chambre1->addReservation($r1);
+//echo $chambre1->afficherReservations();
+//echo $virgile->afficherReservations($chambre2);
+ //echo $r1;

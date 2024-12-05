@@ -149,7 +149,7 @@ class Chambre{
 
 
     public function  addReservation(Reservation $reservation) {
-        return $this->reservations[] = $reservation ."<br>";
+        return $this->reservations[] = $reservation;
     }
 
     public function  afficherReservations()  {

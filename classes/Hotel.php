@@ -135,14 +135,16 @@ class Hotel {
     
     
     public function  addChambre(Chambre $chambre) {
-        return $this->chambres[] = $chambre ."<br>";
+        return $this->chambres[] = $chambre;
     }
 
 
 
 
-    public function  afficherNbChambre()  {
+    public function  afficherReservation()  {
 
+        $count = 0;
+        $result = '';
         foreach($this->chambres as $chambre){
             
             foreach($chambre->getReservations() as $reservation){
@@ -150,8 +152,20 @@ class Hotel {
                 $result .= $reservation."<br>";
             }
         }
-        return "reservations de l'hotel ".$this->getNom()."<p>".$count." Reservation !</p>".$result."<br>"; 
-    }
+        if($count <= 0){
+            return "Aucune reservation !";
+        }
+        else{
+            $nbChambreVide = (count($this->chambres) - $count);
+            return "Total de chambres :<br>".count($this->chambres)."<br>".
+                    "<br> Nombre de chambres reservées: ".$count.
+                    "<br> Nombre de chambres disponible ".$nbChambreVide."<br><br>";
+            }
+        }
+
+        public function afficherAdress(){
+            return "$this->adress "."$this->postal "."$this->ville";
+        }
 
 
 
