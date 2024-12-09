@@ -17,7 +17,8 @@ class Reservation {
         $this->dateFin = new DateTime ($dateFin);
         $this->chambre->addReservation($this);
         $this->client->addReservation($this);
-
+        $chambre->setStatus(false);
+        
     }
 
 
@@ -96,17 +97,24 @@ class Reservation {
      *
      * @return  self
      */ 
-    public function setDateFin($dateFin)
+    
+     public function setDateFin($dateFin)
     {
         $this->dateFin = $dateFin;
 
         return $this;
     }
 
+    
+    public function calcPrix() :float{
+        $interval = $this->dateDebut->diff($this->dateFin);
+        $prix = $interval->format('%a') * $this->chambre->getPrix();
+        return  $prix;
 
+    }
     public function __toString()
     {
-        return $this->dateDebut->format("d-m-Y")." ".$this->dateFin->format("d-m-Y"); 
+        return $this->getClient()." ".$this->chambre->getNmChambre()." - du ".$this->dateDebut->format("d-m-Y")." - au ".$this->dateFin->format("d-m-Y")."<br>"; 
     }
 
 

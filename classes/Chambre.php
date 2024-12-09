@@ -4,13 +4,14 @@ class Chambre{
 
     private string $nmChambre;
     private string $nbLit;
-    private string $prix;
-    private string $wifi;
+    private float $prix;
+    private bool $wifi;
     private Hotel $hotel;
     private array $reservations;
+    private bool $status;
 
 
- public function __construct(string $nmChambre , string $nbLit , string $prix , string $wifi, Hotel $hotel) {
+ public function __construct(string $nmChambre , string $nbLit , float $prix , bool $wifi, Hotel $hotel, $status = true ) {
 
 
 
@@ -21,6 +22,7 @@ class Chambre{
         $this->hotel = $hotel;
         $this->hotel->addChambre($this);
         $this->reservations = [];
+        $this->status = $status ;
 
     }
 
@@ -108,11 +110,32 @@ class Chambre{
     }
 
     /**
+     * Get the value of status
+     */ 
+    public function getStatus()
+    {
+        return $this->status;
+    }
+ 
+    /**
+     * Set the value of status
+     *
+     * @return  self
+     */ 
+    
+    public function setStatus($status)
+    {
+        $this->status = $status;
+ 
+        return $this;
+    }
+
+    /**
      * Get the value of reservations
      */ 
     public function getReservations()
     {
-        return $this->reservations->format("d-m-Y");
+        return $this->reservations;
     }
 
     /**
@@ -145,34 +168,37 @@ class Chambre{
 
         return $this;
     }
-
+    
+    
 
 
     public function  addReservation(Reservation $reservation) {
         return $this->reservations[] = $reservation;
     }
+    public function afficherWifi(){
 
-    public function  afficherReservations()  {
-        $result = "<h1> Reservation $this</h1><br>";
+        if ($this->getWifi()) {
+            $available= "<i class='fa-solid fa-wifi'>WIFI</i>" ;
+        } else {
+            $available = "";
+        }
+        return $available;
+        }            
+
+
+    public function  afficherStatus()  {
+            if ($this->status === true) {
+                return "<p class=available>Disponible</p>";
+            } else {
+                return "<p>Réservée</p>";
+            }
         
-
-        foreach($this->reservations as $reservation){
-            
-           $result.= $reservation;
-       }
-
-        return $result;
-
-
-    }
-
-
-
-
-
+        }
+        
+        
     public function __toString() {
     
-        return $this->hotel->getNom()." ".$this->nmChambre." ".$this->nbLit." ".$this->prix." ".$this->wifi;  
+        return "Hotel " .$this->hotel->getNom()." / ".$this->nmChambre." ( ".$this->nbLit." ".$this->prix." ".$this->afficherWifi()." )";  
     
     }
 
@@ -180,4 +206,5 @@ class Chambre{
 
 
     
+
 }

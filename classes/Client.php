@@ -79,24 +79,31 @@ class Client {
         return $this;
     }
 
-    public function  addReservation(Reservation $reservation) {
-        return $this->reservations[] = $reservation ."<br>";
+    public function  addReservation(Reservation $reservation){
+        return $this->reservations[] = $reservation;
     }
 
     public function  afficherReservations()  {
-        $result = "<h1>Réservations De $this</h1><br>";
-    
+        $count= 0;
+        $result = "";
 
         foreach($this->reservations as $reservation){
-            
-           $result.= $reservation;
+            $count++;
+            $result.= $reservation;
         }
 
-        return $result;
-
-
+        return "<h1>Réservations De $this</h1>"."<p>".$count." Reservation !</p>"." ".$result." "."Total: ".$this->calcStay()." €";    
     }
 
+
+
+    public function calcStay(){
+        $totalPrice = 0;
+        foreach($this->reservations as $reservation){
+            $totalPrice += ($reservation->calcPrix());
+        }
+        return $totalPrice;
+    }
 
     public function __toString() {
     
